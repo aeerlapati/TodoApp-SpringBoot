@@ -1,4 +1,4 @@
-package com.training.project102.controller;
+
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
@@ -18,6 +18,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
 
+import com.training.TodoAppSpringBoot.controller.WelcomeController;
 import com.training.project102.service.NamesService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

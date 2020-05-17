@@ -6,7 +6,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages={"com.training.project102"})
+@ComponentScan(basePackages={"com.training.TodoAppSpringBoot"})
 public class Application {
 
 	public static void main(String[] args) {

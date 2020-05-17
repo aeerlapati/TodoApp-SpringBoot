@@ -4,55 +4,66 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
  
-
 @Entity
+@Table(name = "TASKS")
 public class Tasks {
 	
 	
 	@Column(name = "id")
     @Id
     @GeneratedValue
-	public String Id;
+	Integer Id;
 	
-	public String loginId;
+
+	String loginPassword;
+
+	String taskDescription;
 	
-	public String taskDescription;
+	String taskName;
 	
-	public String taskName;
+	String firstName;
 	
-	public String firstName;
+	String lastName;
 	
-	public String lastName;
+	String dob;
 	
-	public String dob;
+	String taskCompleteFlag;
 	
-	public Boolean taskCompleteFlag;
 	
+	public Integer getId() {
+		return Id;
+	}
+	public void setId(Integer id) {
+		Id = id;
+	}
+	
+	
+	public String getTaskCompleteFlag() {
+		return taskCompleteFlag;
+	}
+	public void setTaskCompleteFlag(String taskCompleteFlag) {
+		this.taskCompleteFlag = taskCompleteFlag;
+	}
+
 	public String taskCreationDate;
 	
 	public String taskUpdateDate;
 	
 	
-	public String getId() {
-		return Id;
-	}
-	public void setId(String id) {
-		Id = id;
-	}
-	
-	public String getLoginId() {
-		return loginId;
-	}
-	
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
-	}
-	
 	public String getTaskDescription() {
 		return taskDescription;
 	}
+	
+	public String getLoginPassword() {
+		return loginPassword;
+	}
+	public void setLoginPassword(String loginPassword) {
+		this.loginPassword = loginPassword;
+	}
+	
 	
 	public void setTaskDescription(String taskDescription) {
 		this.taskDescription = taskDescription;
@@ -88,14 +99,6 @@ public class Tasks {
 	
 	public void setDob(String dob) {
 		this.dob = dob;
-	}
-	
-	public Boolean getTaskCompleteFlag() {
-		return taskCompleteFlag;
-	}
-	
-	public void setTaskCompleteFlag(Boolean taskCompleteFlag) {
-		this.taskCompleteFlag = taskCompleteFlag;
 	}
 	
 	public String getTaskCreationDate() {

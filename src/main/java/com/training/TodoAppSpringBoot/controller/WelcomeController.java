@@ -1,8 +1,10 @@
 package com.training.TodoAppSpringBoot.controller;
 
+import java.util.List;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -152,6 +154,9 @@ public class WelcomeController {
 		Gson gson = new Gson(); 
 		BufferedReader sign_in = new BufferedReader(new InputStreamReader(request.getInputStream()));
 		String inputLine;
+		String userName;
+		String password;
+		boolean validUser = false;
 		StringBuffer response = new StringBuffer();
 		//JSONObject jsonObject = new JSONObject(content.toString());
 		Map<String, String[]> requestMap = request.getParameterMap();
@@ -170,16 +175,35 @@ public class WelcomeController {
 			
 			//Map the values to the model
 			if(json.getString("userName") != null  && !json.getString("userName").isEmpty()) {
-				tasks.setUserName(json.getString("userName"));
+				userName = json.getString("taskName");
 			}else {
 				return "Username value is missing";
 			}
 			
 			if(json.getString("password") != null  && !json.getString("password").isEmpty()) {
-				tasks.setLoginPassword(json.getString("password"));
+				password = json.getString("password");
 			}
 			else {
 				return "password value is missing";
+			}
+			
+			try {
+				signupForm.setUserName(userName);
+				signupForm.setPassword(password);
+				
+				List<SignupForm> allUsers=  new ArrayList<SignupForm>();
+				allUsers = usersService.getAllUsers();
+				logger.error("All Users" + allUsers.get(0).getUserName());
+				
+				for(int i=0;i<allUsers.size();i++) {
+					if (allUsers.get(i).getUserName() == userName && allUsers.get(i).getPassword() == password) {
+						validUser = false;
+					}else {
+						return "User not found, please check enter valid credentials";
+					}
+				}
+			}catch(Exception e) {
+				logger.debug(e.getMessage());
 			}
 			
 			if(json.getString("taskName") != null  && !json.getString("taskName").isEmpty()) {
@@ -197,7 +221,11 @@ public class WelcomeController {
 				tasks.setTaskCompleteFlag(json.getString("taskCompleteFlag"));
 			}
 			
-			tasksService.createTasks(tasks);
+			
+			if(validUser) {
+				tasksService.createTasks(tasks);
+			}
+			
 			logger.error("User" + tasks.getTaskName() + "is created Successfully for" + tasks.getUserName());
 			inputLine = "User" + tasks.getTaskName() + "is created Successfully for" + tasks.getUserName();
 			if (tasks.getId() > 0) {

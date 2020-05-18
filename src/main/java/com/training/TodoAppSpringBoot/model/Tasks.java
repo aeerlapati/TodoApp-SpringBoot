@@ -27,8 +27,6 @@ public class Tasks {
 	
 	String taskCompleteFlag;
 	
-	String guestUser;
-	
 	String createDate;
 	
 	String updateDate;
@@ -47,12 +45,7 @@ public class Tasks {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public String getGuestUser() {
-		return guestUser;
-	}
-	public void setGuestUser(String guestUser) {
-		this.guestUser = guestUser;
-	}
+	
 	public String getCreateDate() {
 		return createDate;
 	}

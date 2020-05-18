@@ -5,7 +5,6 @@ INSERT INTO TASKS VALUES (
   'Task 1',
   'This is a Sample Todo Task',
    'false',
-   'false',
   '01/01/1991',
   '01/01/1991'
 );

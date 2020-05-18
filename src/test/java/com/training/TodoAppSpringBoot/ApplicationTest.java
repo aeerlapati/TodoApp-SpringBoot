@@ -94,6 +94,47 @@ class ApplicationTest {
 	    }
 	  
 	  
+	  	@Test
+	    public void validateAddTaskService() {
+  
+		  try {
+			  	
+			  	String sampleJson = gson.toJson(createAddTaskMap());
+			  	logger.error(sampleJson + "sampleJson");
+				this.mockMvc.perform(post("/addTask").accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON).content(sampleJson)).andDo(print()).andExpect(status().
+						isOk());
+			
+			}catch(Exception e) {
+				logger.error(e.getMessage());
+
+			}
+	    }
+	  
+	    @Test
+	    public void validateAddTaskServiceContent() {
+		  try {
+				this.mockMvc.perform(post("/addTask").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().
+						isBadRequest());
+			
+			}catch(Exception e) {
+				logger.info(e.getMessage());
+
+			}
+	    }
+	    
+	    @Test
+	    public void validateAddTaskServiceheader() {
+		  try {
+				this.mockMvc.perform(post("/addTask").contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().
+						isOk()).andExpect(MockMvcResultMatchers.content().
+								string("Header is missing")); 
+			
+			}catch(Exception e) {
+				logger.info(e.getMessage());
+
+			}
+	    }
+	  
 	  
 	/* 
 	 * @Test public void validateHelloGetService_Json() throws Exception {
@@ -128,6 +169,17 @@ class ApplicationTest {
 		      signupMap.put("lastName", "name1");
 		      signupMap.put("dob", "dob1");
 		      return signupMap;
+
+	  }
+ 
+	  private static Map<String,String> createAddTaskMap(){
+	      Map<String,String> taskMap = new HashMap<String,String>();
+	      taskMap.put("username", "name1");
+	      taskMap.put("password", "password1");
+	      taskMap.put("firstName", "name1");
+	      taskMap.put("lastName", "name1");
+	      taskMap.put("dob", "dob1");
+	      return taskMap;
 
 	  }
 

@@ -10,3 +10,13 @@ INSERT INTO TASKS VALUES (
   '01/01/1991',
   '01/01/1991'
 );
+
+
+INSERT INTO USERS VALUES (
+  1000,
+  'abhinav',
+  'eerlapati',
+  '01/01/1991',
+  'abhinav1',
+  'abhinav1'
+);

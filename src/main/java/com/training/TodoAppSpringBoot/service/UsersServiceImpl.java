@@ -1,15 +1,13 @@
 package com.training.TodoAppSpringBoot.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.training.TodoAppSpringBoot.model.SignupForm;
 import com.training.TodoAppSpringBoot.repository.UsersRepository;
-import com.training.project102.model.Names;
-import com.training.project102.repository.NameRepository;
-
-import java.util.List;
-import java.util.Optional;
 
 /**
  * created by pc on Mar, 2020

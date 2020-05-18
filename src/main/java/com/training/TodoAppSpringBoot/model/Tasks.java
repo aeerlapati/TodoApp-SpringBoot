@@ -17,20 +17,21 @@ public class Tasks {
     @GeneratedValue
 	Integer Id;
 	
-
+	String userName;
+	
 	String loginPassword;
 
 	String taskDescription;
 	
 	String taskName;
 	
-	String firstName;
-	
-	String lastName;
-	
-	String dob;
-	
 	String taskCompleteFlag;
+	
+	String guestUser;
+	
+	String createDate;
+	
+	String updateDate;
 	
 	
 	public Integer getId() {
@@ -40,6 +41,30 @@ public class Tasks {
 		Id = id;
 	}
 	
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getGuestUser() {
+		return guestUser;
+	}
+	public void setGuestUser(String guestUser) {
+		this.guestUser = guestUser;
+	}
+	public String getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+	public String getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(String updateDate) {
+		this.updateDate = updateDate;
+	}
 	
 	public String getTaskCompleteFlag() {
 		return taskCompleteFlag;
@@ -47,11 +72,6 @@ public class Tasks {
 	public void setTaskCompleteFlag(String taskCompleteFlag) {
 		this.taskCompleteFlag = taskCompleteFlag;
 	}
-
-	public String taskCreationDate;
-	
-	public String taskUpdateDate;
-	
 	
 	public String getTaskDescription() {
 		return taskDescription;
@@ -76,38 +96,5 @@ public class Tasks {
 	public void setTaskName(String taskName) {
 		this.taskName = taskName;
 	}
-	
-	public String getFirstName() {
-		return firstName;
-	}
-	
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	
-	public String getLastName() {
-		return lastName;
-	}
-	
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	
-	public String getDob() {
-		return dob;
-	}
-	
-	public void setDob(String dob) {
-		this.dob = dob;
-	}
-	
-	public String getTaskCreationDate() {
-		return taskCreationDate;
-	}
-	
-	public void setTaskCreationDate(String taskCreationDate) {
-		this.taskCreationDate = taskCreationDate;
-	}
-	
 	
 }

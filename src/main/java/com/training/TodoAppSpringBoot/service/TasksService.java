@@ -11,7 +11,9 @@ public interface TasksService {
 
     List<Tasks> getAllTasks();
 
-    Tasks getTasksById(String id);
+    Tasks getTasksById(Integer id);
 
-    boolean deleteTasksById(String id);
+    boolean deleteTasksById(Integer id);
+    
+    List<Tasks> findTaskByUserName(String username);
 }

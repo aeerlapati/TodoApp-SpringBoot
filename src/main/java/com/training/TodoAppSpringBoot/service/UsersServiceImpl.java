@@ -31,13 +31,13 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public SignupForm getUsersById(String id) {
+	public SignupForm getUsersById(Integer id) {
 		 Optional<SignupForm> dbOrder = usersRepository.findById(id);
 	     return dbOrder.orElse(null);
 	}
 
 	@Override
-	public boolean deleteUsersById(String id) {
+	public boolean deleteUsersById(Integer id) {
 		usersRepository.deleteById(id);
         return getUsersById(id) == null;
 	}

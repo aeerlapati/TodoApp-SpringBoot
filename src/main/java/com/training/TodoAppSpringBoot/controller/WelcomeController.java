@@ -4,6 +4,8 @@ import java.util.List;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -42,109 +44,6 @@ public class WelcomeController {
 	@Autowired
 	TasksService tasksService;
 	
-	
-	
-	@SuppressWarnings("null")
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(@RequestHeader HttpHeaders headers,HttpServletRequest request) throws IOException{
-		if(headers.get("accept-language").isEmpty()) {
-			return "Header is missing";
-		}
-		BufferedReader in = new BufferedReader(new InputStreamReader(request.getInputStream()));
-		String inputLine;
-		StringBuffer response = null;
-		try {
-			logger.error(headers.get("accept-language"));
-			logger.error(request.getRequestURI());
-
-			while ((inputLine = in.readLine()) != null) {
-				logger.error(inputLine);
-			}
-		}catch(Exception e) {
-			logger.error(e.getMessage());
-		}finally {
-			in.close();
-		}
-		return "Login Successfull";
-	}
-	
-	@SuppressWarnings("null")
-	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-	public String signUp(@RequestHeader HttpHeaders headers,HttpServletRequest request) throws IOException {
-		if(headers.get("accept-language").isEmpty()) {
-			return "Header is missing";
-		}
-		Gson gson = new Gson(); 
-		BufferedReader sign_in = new BufferedReader(new InputStreamReader(request.getInputStream()));
-		String inputLine;
-		StringBuffer response = new StringBuffer();
-		//JSONObject jsonObject = new JSONObject(content.toString());
-		Map<String, String[]> requestMap = request.getParameterMap();
-		
-		try {
-	        
-			logger.error(headers.get("accept-language"));
-			logger.error(request.getRequestURI());
-			
-			while ((inputLine = sign_in.readLine()) != null) {
-				response.append(inputLine);
-				//logger.error(inputLine);
-			}
-		    
-			JSONObject json = new JSONObject(response.toString());
-			
-			//Map the values to the model
-			if(json.getString("userName") != null  && !json.getString("userName").isEmpty()) {
-				signupForm.setUserName(json.getString("userName"));
-			}else {
-				return "Username value is missing";
-			}
-			
-			if(json.getString("password") != null  && !json.getString("password").isEmpty()) {
-				signupForm.setPassword(json.getString("password"));
-			}
-			else {
-				return "password value is missing";
-			}
-			
-			if(json.getString("firstName") != null  && !json.getString("firstName").isEmpty()) {
-				signupForm.setFirstName(json.getString("firstName"));
-			}else {
-				return "firstname value is missing";
-			}
-			
-			if(json.getString("lastName") != null  && !json.getString("lastName").isEmpty()) {
-				signupForm.setLastName(json.getString("lastName"));
-			}else {
-				return "lastname value is missing";
-			}
-			
-			if(json.getString("dob") != null  && !json.getString("dob").isEmpty()) {
-				signupForm.setDob(json.getString("dob"));
-			}else {
-				return "dob value is missing";
-			}
-			
-			usersService.createUsers(signupForm);
-			logger.error("User" + signupForm.getUserName().toString() + "is created Successfully");
-			inputLine = "User" + signupForm.getUserName().toString() + "is created Successfully";
-			if (signupForm.getId() > 0) {
-				return inputLine;
-			}else {
-				return "Unsuccessfull";
-			}
-			
-		}catch(Exception e) {
-			logger.error(e.getMessage());
-			return e.getMessage();
-
-		}finally {
-			sign_in.close();
-		}
-
-	}
-	
-	
 	@SuppressWarnings("null")
 	@RequestMapping(value = "/addTask", method = RequestMethod.POST)
 	public String addTask(@RequestHeader HttpHeaders headers,HttpServletRequest request) throws IOException {
@@ -173,39 +72,6 @@ public class WelcomeController {
 		    
 			JSONObject json = new JSONObject(response.toString());
 			
-			//Map the values to the model
-			if(json.getString("userName") != null  && !json.getString("userName").isEmpty()) {
-				userName = json.getString("taskName");
-			}else {
-				return "Username value is missing";
-			}
-			
-			if(json.getString("password") != null  && !json.getString("password").isEmpty()) {
-				password = json.getString("password");
-			}
-			else {
-				return "password value is missing";
-			}
-			
-			try {
-				signupForm.setUserName(userName);
-				signupForm.setPassword(password);
-				
-				List<SignupForm> allUsers=  new ArrayList<SignupForm>();
-				allUsers = usersService.getAllUsers();
-				logger.error("All Users" + allUsers.get(0).getUserName());
-				
-				for(int i=0;i<allUsers.size();i++) {
-					if (allUsers.get(i).getUserName() == userName && allUsers.get(i).getPassword() == password) {
-						validUser = false;
-					}else {
-						return "User not found, please check enter valid credentials";
-					}
-				}
-			}catch(Exception e) {
-				logger.debug(e.getMessage());
-			}
-			
 			if(json.getString("taskName") != null  && !json.getString("taskName").isEmpty()) {
 				tasks.setTaskName(json.getString("taskName"));
 			}
@@ -221,13 +87,19 @@ public class WelcomeController {
 				tasks.setTaskCompleteFlag(json.getString("taskCompleteFlag"));
 			}
 			
+				tasks.setUserName("user");
 			
-			if(validUser) {
-				tasksService.createTasks(tasks);
-			}
+		    Date date = new Date(System.currentTimeMillis());
+		    SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yy");
+		    String s = formatter.format(date);
 			
-			logger.error("User" + tasks.getTaskName() + "is created Successfully for" + tasks.getUserName());
-			inputLine = "User" + tasks.getTaskName() + "is created Successfully for" + tasks.getUserName();
+		    tasks.setCreateDate(s);
+		    tasks.setUpdateDate(s);
+			
+		    tasksService.createTasks(tasks);
+			
+			logger.error("User " + tasks.getTaskName() + " is created Successfully for " + tasks.getUserName());
+			inputLine = "User " + tasks.getTaskName() + " is created Successfully for " + tasks.getUserName();
 			if (tasks.getId() > 0) {
 				return inputLine;
 			}else {
@@ -241,6 +113,58 @@ public class WelcomeController {
 		}finally {
 			sign_in.close();
 		}
+
+	}
+	
+	
+	@SuppressWarnings("null")
+	@RequestMapping(value = "/getTasks", method = RequestMethod.GET)
+	public String getTasks(@RequestHeader HttpHeaders headers,HttpServletRequest request) throws IOException {
+		if(headers.get("accept-language").isEmpty()) {
+			return "Header is missing";
+		}
+		Gson gson = new Gson(); 
+		BufferedReader sign_in = new BufferedReader(new InputStreamReader(request.getInputStream()));
+		String inputLine;
+		StringBuffer response = new StringBuffer();
+		//JSONObject jsonObject = new JSONObject(content.toString());
+		List<Tasks> allTasks = new ArrayList<Tasks>();
+		String returnVal = null;
+		try {
+	        
+			logger.error(headers.get("accept-language"));
+			logger.error(request.getRequestURI());
+			
+			while ((inputLine = sign_in.readLine()) != null) {
+				response.append(inputLine);
+				//logger.error(inputLine);
+			}
+		    			
+			allTasks = tasksService.getAllTasks();
+			
+			if (allTasks.size() > 0) {
+				for(int i=0;i<allTasks.size();i++) {					
+					if(returnVal == null) {
+						returnVal =  allTasks.get(i).getTaskName();
+					}else {
+						returnVal = returnVal + "  " + allTasks.get(i).getTaskName();
+					}
+					
+				}
+				
+			}else {
+				returnVal = "No Tasks Found";
+			}
+			
+		}catch(Exception e) {
+			logger.error(e.getMessage());
+			returnVal = "Something Went Wrong";
+
+		}finally {
+			sign_in.close();
+		}
+		
+		return returnVal;
 
 	}
 	

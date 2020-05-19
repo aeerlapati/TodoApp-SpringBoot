@@ -3,6 +3,7 @@ package com.training.TodoAppSpringBoot.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,20 +13,28 @@ import javax.persistence.Table;
 public class SignupForm {
 	
 	
-	@Column(name = "id")
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer Id;
 	
-	String firstName;
+    @Column(name = "firstname")
+    String firstName;
 	
-	String lastName;
+    @Column(name = "lastname")
+    String lastName;
 	
-	String dob;
+    @Column(name = "dob")
+    String dob;
 	
-	String userName;
+    @Column(name = "username")
+    String userName;
 	
-	String password;
+    @Column(name = "password")
+    String password;
+	
+	public SignupForm() {
+		
+	}
 	
 	public Integer getId() {
 		return Id;

@@ -11,7 +11,7 @@ public interface UsersService {
 
     List<SignupForm> getAllUsers();
 
-    SignupForm getUsersById(String id);
+    SignupForm getUsersById(Integer id);
 
-    boolean deleteUsersById(String id);
+    boolean deleteUsersById(Integer id);
 }

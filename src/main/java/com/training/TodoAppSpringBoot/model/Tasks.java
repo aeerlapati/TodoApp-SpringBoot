@@ -3,6 +3,7 @@ package com.training.TodoAppSpringBoot.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,24 +12,26 @@ import javax.persistence.Table;
 @Table(name = "TASKS")
 public class Tasks {
 	
-	
-	@Column(name = "id")
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer Id;
 	
-	String userName;
-	
-	String loginPassword;
+    @Column(name = "username")
+    String userName;
 
+    @Column(name = "taskdescription")
 	String taskDescription;
 	
+    @Column(name = "taskname")
 	String taskName;
 	
+    @Column(name = "taskcompleteflag")
 	String taskCompleteFlag;
 	
+    @Column(name = "createdate")
 	String createDate;
 	
+    @Column(name = "updatedate")
 	String updateDate;
 	
 	
@@ -68,13 +71,6 @@ public class Tasks {
 	
 	public String getTaskDescription() {
 		return taskDescription;
-	}
-	
-	public String getLoginPassword() {
-		return loginPassword;
-	}
-	public void setLoginPassword(String loginPassword) {
-		this.loginPassword = loginPassword;
 	}
 	
 	

@@ -130,13 +130,42 @@ class ApplicationTest {
 			  
 			  HttpHeaders httpHeaders = new HttpHeaders();
 			  httpHeaders.setBasicAuth("user", "password");
-				this.mockMvc.perform(get("/getTaskDate/**").contentType(MediaType.APPLICATION_JSON).headers(httpHeaders)).andDo(print()).andExpect(status().isOk());
+				this.mockMvc.perform(get("/getTaskDate/123").contentType(MediaType.APPLICATION_JSON).headers(httpHeaders)).andDo(print()).andExpect(status().isOk());
 			
 			}catch(Exception e) {
 				logger.info(e.getMessage());
 
 			}
 	    }
+	    
+	    
+	    @Test
+	    public void validateupdateTaskServiceheader() {
+		  try {
+			  
+			  HttpHeaders httpHeaders = new HttpHeaders();
+			  httpHeaders.setBasicAuth("user", "password");
+				this.mockMvc.perform(post("/updateTask/**").contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isUnauthorized()); 
+			
+			}catch(Exception e) {
+				logger.info(e.getMessage());
+
+			}
+	    }
+	    
+	    @Test
+	    public void validateupdateTaskService() {
+		  try {
+			  
+			  HttpHeaders httpHeaders = new HttpHeaders();
+			  httpHeaders.setBasicAuth("user", "password");
+				this.mockMvc.perform(post("/updateTask/123").contentType(MediaType.APPLICATION_JSON).headers(httpHeaders)).andDo(print()).andExpect(status().isOk());
+			
+			}catch(Exception e) {
+				logger.info(e.getMessage());
+			}
+	    }
+	    
 	    
 	  private static Map<String,String> createAddTaskMap(){
 	      Map<String,String> taskMap = new HashMap<String,String>();

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.training.TodoAppSpringBoot.model.Tasks;
@@ -38,16 +39,5 @@ public class TasksServiceImpl implements TasksService {
 		tasksRepository.deleteById(id);
         return getTasksById(id) == null;
 	}
-
-	public List<Tasks> findTaskByUserName(String username) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
-//	@Override
-//	@Query("select * from ")
-//	public List<Tasks> findTaskByUserName(String username) {
-//		tasksRepository.deleteById(id);
-//        return getTasksById(id) == null;
-//	}
 }

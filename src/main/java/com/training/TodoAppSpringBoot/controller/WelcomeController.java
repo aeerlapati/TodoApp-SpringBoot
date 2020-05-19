@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.training.TodoAppSpringBoot.model.SignupForm;
 import com.training.TodoAppSpringBoot.model.Tasks;
+import com.training.TodoAppSpringBoot.repository.TasksRepository;
 import com.training.TodoAppSpringBoot.service.TasksService;
 import com.training.TodoAppSpringBoot.service.UsersService; 
 
@@ -43,6 +45,7 @@ public class WelcomeController {
 	
 	@Autowired
 	TasksService tasksService;
+	
 	
 	@SuppressWarnings("null")
 	@RequestMapping(value = "/addTask", method = RequestMethod.POST)
@@ -162,6 +165,34 @@ public class WelcomeController {
 
 		}finally {
 			sign_in.close();
+		}
+		
+		return returnVal;
+
+	}
+	
+	@RequestMapping(value = "/getTaskDate/{var}", method = RequestMethod.GET)
+	public String getTaskUpdateDate(@RequestHeader HttpHeaders headers,HttpServletRequest request,@PathVariable(value = "var") Integer var) throws IOException {
+		if(headers.get("accept-language").isEmpty()) {
+			return "Header is missing";
+		}
+		Tasks tasks = new Tasks();
+		String returnVal = null;
+		try {
+			
+			tasks = tasksService.getTasksById(var);
+			if(!tasks.getUpdateDate().isEmpty() && tasks.getUpdateDate() != null) {
+				returnVal =  tasks.getCreateDate();
+			}else {
+				returnVal =  "No Tasks Found, Please enter a valid Id to locate your task";
+			}
+			
+		}catch(Exception e) {
+			logger.error(e.getMessage());
+			returnVal = "Something Went Wrong";
+
+		}finally {
+			
 		}
 		
 		return returnVal;

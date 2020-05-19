@@ -47,6 +47,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 		 .antMatchers(HttpMethod.POST, "/addTask").hasRole("USER")
 
 		 .antMatchers(HttpMethod.GET, "/getTasks").hasRole("USER")
+		 
+		 .antMatchers(HttpMethod.GET, "/getTaskDate/**").hasRole("USER")
+		 
+		 .antMatchers(HttpMethod.GET, "/updateTask/**").hasRole("USER")
 
 		.and()
 

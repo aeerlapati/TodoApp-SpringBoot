@@ -2,7 +2,7 @@
 
 ## To run this app Locally
 1. Clone this repo and navigate to this project folder
-2. Run ./mvnw spring-boot:run for running it locally 
+2. Run ./mvnw spring-boot:run 
 
 ## To deploy it to Docker
 1. Run the command docker build -f Dockerfile -t (Some Name) for building an image in docker.

@@ -8,5 +8,5 @@ import com.training.TodoAppSpringBoot.model.Tasks;
 
 @Repository
 public interface TasksRepository extends JpaRepository<Tasks, Integer> {
-
+	
 }

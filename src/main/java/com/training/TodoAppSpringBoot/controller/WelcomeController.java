@@ -346,7 +346,7 @@ public class WelcomeController {
 
 		}catch(Exception e) {
 			logger.error(e.getMessage());
-			return "Something Went Wrong";
+			return "Please provide a valid Id";
 
 		}finally {
 

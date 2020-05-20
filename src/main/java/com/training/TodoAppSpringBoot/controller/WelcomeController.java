@@ -274,8 +274,32 @@ public class WelcomeController {
 		}
 
 		return returnVal;
+	}
+	
+	
+	@RequestMapping(value = "/deleteTask/{var}", method = RequestMethod.DELETE)
+	public String deleteTask(@RequestHeader HttpHeaders headers,HttpServletRequest request,@PathVariable(value = "var") Integer var) throws IOException {
+		if(headers.get("accept-language").isEmpty()) {
+			return "Header is missing";
+		}
+		Boolean returnVal ;
+		try {
+
+			returnVal = tasksService.deleteTasksById(var);
+			if(returnVal) {
+				return "Record Deleted Successfully";
+			}else {
+				return "Task Unsuccessfull please try later";
+
+			}
+
+		}catch(Exception e) {
+			logger.error(e.getMessage());
+			return "Something Went Wrong";
+
+		}finally {
+
+		}
 
 	}
-
-
 }

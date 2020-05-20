@@ -153,6 +153,38 @@ class ApplicationTest {
 			}
 	    }
 	    
+	    
+	    
+	    @Test
+	    public void validatedeleteTaskServiceSuccess() {
+		  try {
+			  
+			  HttpHeaders httpHeaders = new HttpHeaders();
+			  httpHeaders.setBasicAuth("user", "password");
+				this.mockMvc.perform(get("/deleteTask/123").contentType(MediaType.APPLICATION_JSON).headers(httpHeaders)).andDo(print()).andExpect(status().isOk());
+			
+			}catch(Exception e) {
+				logger.info(e.getMessage());
+
+			}
+	    }
+	    
+	    
+	    @Test
+	    public void validatedeleteTaskServiceHeader() {
+		  try {
+			  
+			  HttpHeaders httpHeaders = new HttpHeaders();
+			  httpHeaders.setBasicAuth("user", "password");
+				this.mockMvc.perform(post("/deleteTask/123").contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isUnauthorized()); 
+			
+			}catch(Exception e) {
+				logger.info(e.getMessage());
+
+			}
+	    }
+	    
+	    
 	/*
 	 * @Test public void validateupdateTaskService() { try {
 	 * 

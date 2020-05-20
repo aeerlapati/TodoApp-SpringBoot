@@ -2,11 +2,10 @@ INSERT INTO TASKS (username,taskname,taskdescription,taskcompleteflag,createdate
   'abhinav1',
   'Task 1',
   'This is a Sample Todo Task',
-   'false',
+   'true',
   '01/01/1991',
   '01/01/1991'
 );
-
 
 INSERT INTO USERS (firstName,lastname,dob,username,password) VALUES (
   'abhinav',

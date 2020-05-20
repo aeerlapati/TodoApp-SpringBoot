@@ -300,6 +300,56 @@ public class WelcomeController {
 		}finally {
 
 		}
+	}
+	
+	@RequestMapping(value = "/getAllTasks", method = RequestMethod.GET)
+	public List<Tasks> getAllTasks(@RequestHeader HttpHeaders headers,HttpServletRequest request) throws IOException {
+		if(headers.get("accept-language").isEmpty()) {
+			return null;
+		}
+		List<Tasks> tasks = new ArrayList<Tasks>();
+		try {
 
+			tasks = tasksService.getAllTasks();
+			if(tasks.size() > 0) {
+				return tasks;
+			}else {
+				return null;
+
+			}
+
+		}catch(Exception e) {
+			logger.error(e.getMessage());
+			return null;
+
+		}finally {
+
+		}
+	}
+	
+	@RequestMapping(value = "/getTaskUpdateDate/{var}", method = RequestMethod.GET)
+	public String getTaskUpdateData(@RequestHeader HttpHeaders headers,HttpServletRequest request,@PathVariable(value = "var") Integer var) throws IOException {
+		if(headers.get("accept-language").isEmpty()) {
+			return null;
+		}
+		Tasks tasks = new Tasks();
+		try {
+
+			tasks = tasksService.getTasksById(var);
+			if(tasks.getId() == var && tasks.getTaskCompleteFlag().trim().equalsIgnoreCase("true")) {
+				return tasks.getUpdateDate();
+			}else if(tasks.getId() == var && !tasks.getTaskCompleteFlag().trim().equalsIgnoreCase("true")){
+				return "Task is not completed";
+			}else {
+				return "Please provide a valid Id";
+			}
+
+		}catch(Exception e) {
+			logger.error(e.getMessage());
+			return "Something Went Wrong";
+
+		}finally {
+
+		}
 	}
 }

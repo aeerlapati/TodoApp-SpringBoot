@@ -52,8 +52,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 		 
 		 .antMatchers(HttpMethod.GET, "/updateTask/**").hasRole("USER")
 		 
-		 .antMatchers(HttpMethod.GET, "/deleteTask/**").hasRole("USER")
+		 .antMatchers(HttpMethod.DELETE, "/deleteTask/**").hasRole("USER")
 
+		 .antMatchers(HttpMethod.GET, "/getAllTasks").hasRole("USER")
+		 
+		 .antMatchers(HttpMethod.GET, "/getTaskUpdateDate/{var}").hasRole("USER")
+
+		 
 		.and()
 
 		.csrf().disable()

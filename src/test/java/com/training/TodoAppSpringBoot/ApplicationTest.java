@@ -1,5 +1,6 @@
 package com.training.TodoAppSpringBoot;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -161,7 +162,7 @@ class ApplicationTest {
 			  
 			  HttpHeaders httpHeaders = new HttpHeaders();
 			  httpHeaders.setBasicAuth("user", "password");
-				this.mockMvc.perform(get("/deleteTask/123").contentType(MediaType.APPLICATION_JSON).headers(httpHeaders)).andDo(print()).andExpect(status().isOk());
+				this.mockMvc.perform(delete("/deleteTask/123").contentType(MediaType.APPLICATION_JSON).headers(httpHeaders)).andDo(print()).andExpect(status().isOk());
 			
 			}catch(Exception e) {
 				logger.info(e.getMessage());
@@ -176,7 +177,7 @@ class ApplicationTest {
 			  
 			  HttpHeaders httpHeaders = new HttpHeaders();
 			  httpHeaders.setBasicAuth("user", "password");
-				this.mockMvc.perform(post("/deleteTask/123").contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isUnauthorized()); 
+				this.mockMvc.perform(delete("/deleteTask/123").contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isUnauthorized()); 
 			
 			}catch(Exception e) {
 				logger.info(e.getMessage());
@@ -184,6 +185,80 @@ class ApplicationTest {
 			}
 	    }
 	    
+	    
+	    
+	    @Test
+	    public void validategetAllTasksServiceSuccess() {
+		  try {
+			  
+			  HttpHeaders httpHeaders = new HttpHeaders();
+			  httpHeaders.setBasicAuth("user", "password");
+				this.mockMvc.perform(get("/getAllTasks").contentType(MediaType.APPLICATION_JSON).headers(httpHeaders)).andDo(print()).andExpect(status().isOk());
+			
+			}catch(Exception e) {
+				logger.info(e.getMessage());
+
+			}
+	    }
+	    
+	    
+	    @Test
+	    public void validategetAllTasksServiceHeader() {
+		  try {
+			  
+			  HttpHeaders httpHeaders = new HttpHeaders();
+			  httpHeaders.setBasicAuth("user", "password");
+				this.mockMvc.perform(get("/getAllTasks").contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isUnauthorized()); 
+			
+			}catch(Exception e) {
+				logger.info(e.getMessage());
+
+			}
+	    }
+	    
+	    
+	    @Test
+	    public void validategetTaskUpdateDateServiceSuccess() {
+		  try {
+			  
+			  HttpHeaders httpHeaders = new HttpHeaders();
+			  httpHeaders.setBasicAuth("user", "password");
+				this.mockMvc.perform(get("/getTaskUpdateDate/1").contentType(MediaType.APPLICATION_JSON).headers(httpHeaders)).andDo(print()).andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().
+						string("01/01/1991"));
+			
+			}catch(Exception e) {
+				logger.info(e.getMessage());
+			}
+	    }
+	    
+	    @Test
+	    public void validategetTaskUpdateDateServiceNotFound() {
+		  try {
+			  
+			  HttpHeaders httpHeaders = new HttpHeaders();
+			  httpHeaders.setBasicAuth("user", "password");
+				this.mockMvc.perform(get("/getTaskUpdateDate/12").contentType(MediaType.APPLICATION_JSON).headers(httpHeaders)).andDo(print()).andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().
+						string("Please provide a valid Id"));
+			
+			}catch(Exception e) {
+				logger.info(e.getMessage());
+			}
+	    }
+	    
+	    
+	    @Test
+	    public void validategetTaskUpdateDateServiceHeader() {
+		  try {
+			  
+			  HttpHeaders httpHeaders = new HttpHeaders();
+			  httpHeaders.setBasicAuth("user", "password");
+				this.mockMvc.perform(get("/getTaskUpdateDate/123").contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isUnauthorized()); 
+			
+			}catch(Exception e) {
+				logger.info(e.getMessage());
+
+			}
+	    }
 	    
 	/*
 	 * @Test public void validateupdateTaskService() { try {

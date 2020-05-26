@@ -11,3 +11,8 @@
 
 ## To Access the database locally run below command
 http://localhost:9095/h2-console/login.jsp
+
+## Authorization
+while testing through postman select basic as authorization type and use below credentials
+Username: user
+Password: password

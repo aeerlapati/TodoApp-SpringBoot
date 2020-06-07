@@ -1,0 +1,34 @@
+---
+resources:
+  - name: TodoApp-SpringBoot
+    type: git
+    source:
+      uri: https://github.com/aeerlapati/TodoApp-SpringBoot.git
+      branch: master
+    check_every: 1m
+
+jobs:
+  - name: job-build-todoApp
+    plan:
+      - get: TodoApp-SpringBoot
+        trigger: true
+      - task: build-target
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source: {repository: openjdk, tag: 8-jdk-alpine}
+            source: {repository: maven, tag: 3.3-jdk-8-alpine}
+
+          inputs: 
+            - name: TodoApp-SpringBoot
+
+          outputs:
+            - name: target/TodoAppSpringBoot-0.0.1-SNAPSHOT.jar
+          
+          run:
+            path: sh
+            dir: TodoApp-SpringBoot
+            args:
+            - -exc
+            - mvn package
